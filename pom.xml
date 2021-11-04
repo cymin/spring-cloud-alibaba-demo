@@ -6,12 +6,7 @@
 		<module>order</module>
 		<module>stock</module>
 	</modules>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.6</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+
 	<groupId>com.github</groupId>
 	<artifactId>springcloudalibaba</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -20,6 +15,9 @@
 	<packaging>pom</packaging>
 	<properties>
 		<java.version>1.8</java.version>
+		<spring-boot.version>2.3.11.RELEASE</spring-boot.version>
+		<spring-cloud-alibaba.version>2.2.5.RELEASE</spring-cloud-alibaba.version>
+		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -34,6 +32,39 @@
 		</dependency>
 	</dependencies>
 
+	<!-- 使用dependencyManagement来实现jar包的继承，
+	使用parent不需要显式声明，子项目直接就继承了父类的jar包，但只能有一个parent
+	通过使用dependencyManagement实现了多继承，这样上面不用配置parent了，留出来配置公司私有的parent
+	但子项目必须要显式的声明才会引用该jar包
+	-->
+	<dependencyManagement>
+		<dependencies>
+			<!-- spring cloud alibaba的版本管理，通过dependency完成，子类添加就不需要写版本号了 -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring-cloud-alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- spring boot 的版本号管理 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-parent</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- spring cloud 的版本号管理 -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<build>
 		<plugins>
 			<plugin>
