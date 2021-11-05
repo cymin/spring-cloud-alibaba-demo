@@ -5,6 +5,8 @@
 	<modules>
 		<module>order</module>
 		<module>stock</module>
+		<module>order-nacos</module>
+		<module>stock-nacos</module>
 	</modules>
 
 	<groupId>com.github</groupId>
