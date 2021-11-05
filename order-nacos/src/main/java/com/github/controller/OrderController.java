@@ -19,7 +19,7 @@ public class OrderController {
     @GetMapping("/add")
     public String add() {
         System.out.println("订单创建成功");
-        restTemplate.getForObject("http://localhost:8021/stock/deduct", String.class);
+        restTemplate.getForObject("http://stock-service/stock/deduct", String.class);
         return "success";
     }
 }
