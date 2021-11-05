@@ -10,9 +10,9 @@
 	</modules>
 
 	<groupId>com.github</groupId>
-	<artifactId>springcloudalibaba</artifactId>
+	<artifactId>spring-cloud-alibaba-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springcloudalibaba</name>
+	<name>spring-cloud-alibaba-demo</name>
 	<description>Demo project for Spring Boot</description>
 	<packaging>pom</packaging>
 	<properties>
