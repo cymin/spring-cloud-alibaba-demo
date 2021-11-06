@@ -7,7 +7,7 @@ spring:
     name: stock-service
   cloud:
     nacos:
-      server-addr: 127.0.0.1:8848 # 单机
+      server-addr: 127.0.0.1:8847 # nginx映射到本机的8847端口了
       discovery:
         username: nacos
         password: nacos
