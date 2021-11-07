@@ -1,0 +1,14 @@
+server:
+  port: 8040
+
+spring:
+  application:
+    # nacos会把应用名称当作服务名称
+    name: order-service
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8847
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: public
