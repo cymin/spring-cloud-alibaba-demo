@@ -17,3 +17,10 @@ spring:
 #stock-service:
 #  ribbon:
 #    NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule
+
+ribbon:
+  eager-load:
+    # 对自定义的负载均衡器开启饥饿加载，即在服务启动的时候加载，解决第一次调用慢的问题
+    enabled: true
+    # 配置stock-service饥饿加载，多个用逗号分割
+    clients: stock-service
