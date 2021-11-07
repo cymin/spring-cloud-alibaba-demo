@@ -24,6 +24,13 @@ docker network create service
 ```
 
 ## 创建集群
+- 创建自定义属性文件
+```bash
+touch ~/compose/nacos-cluster/init.d/custom.properties
+vim ~/compose/nacos-cluster/init.d/custom.properties
+nacos.core.auth.enabled=true
+```
+
 - docker-compose.yml
 ```bash
 version: "3"
