@@ -17,7 +17,7 @@ public class ProductController {
     String port;
 
     @GetMapping("/get/{id}")
-    public String get(@PathVariable String id) {
+    public String get(@PathVariable Integer id) {
         System.out.println("查询到商品id：" + id);
         return "查询到商品id：" + id + " port=" + port;
     }

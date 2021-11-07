@@ -12,3 +12,8 @@ spring:
         username: nacos
         password: nacos
         namespace: public
+# springboot的默认日志级别是info，feign的debug日志不会打印
+logging:
+  level:
+    # 只设置com.github.feign包下面的接口日志打印
+    com.github.feign: debug

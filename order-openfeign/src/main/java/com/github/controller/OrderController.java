@@ -1,5 +1,6 @@
 package com.github.controller;
 
+import com.github.feign.ProductFeignService;
 import com.github.feign.StockFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,9 @@ public class OrderController {
     @Autowired
     StockFeignService stockFeignService;
 
+    @Autowired
+    ProductFeignService productFeignService;
+
     /**
      * 4.使用openfeign
      * @return
@@ -23,7 +27,8 @@ public class OrderController {
     @GetMapping("/add")
     public String add() {
         System.out.println("订单创建成功");
-        String msg = stockFeignService.deduct();
-        return "hello openfeign " + msg;
+        String s = stockFeignService.deduct();
+        String p = productFeignService.get(1);
+        return "stock:" + s + ", product:" + p;
     }
 }
