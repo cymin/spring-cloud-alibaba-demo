@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @author : cymin
  * @date : 2021.11.06 下午9:20
  */
-@Configuration
+//@Configuration
 public class RandomRuleConfig {
     /**
      * 方法名一定要叫iRule，其他的不起作用
