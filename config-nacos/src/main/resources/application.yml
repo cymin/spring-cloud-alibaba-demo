@@ -1,2 +1,9 @@
 server:
   port: 8050
+spring:
+  profiles:
+    active: dev
+    #在注册中心的DataId，也可以通过profile来设置，只有默认的配置文件才能结合profile使用
+    #对应的DataId：${spring.application.name}-${profile}.${file-extension:properties}
+    # com.github.order.redis-dev.properties
+    #profile的后缀必须要用默认的配置文件格式

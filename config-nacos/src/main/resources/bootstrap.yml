@@ -1,6 +1,6 @@
 spring:
   application:
-    # 配置列表中的DataId必须和应用名称保持一致，nacos会自动根据应用名称来获取用户配置的属性
+    # nacos会自动根据应用名称来获取用户配置的属性,所以spring.application.name可以作为DataId
     name: com.github.order.redis
   cloud:
     nacos:
