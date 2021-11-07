@@ -1,0 +1,18 @@
+server:
+  port: 8023
+
+spring:
+  application:
+    # nacos会把应用名称当作服务名称
+    name: product-service
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8847 # nginx映射到本机的8847端口了
+      discovery:
+        username: nacos
+        password: nacos
+#        namespace: public # 具有相同特征的服务归类和分组管理
+#        weight: 1 # 通常要结合负载均衡策略，值越大分配的流量越大
+#        group: DEFAULT_GROUP # 更细的，具有相同特征的服务归类和分组管理
+#        ephemeral: true # 默认为true，临时实例，超过心跳，自动剔除；如果为true，是永久实例，哪怕宕机了，nacos也不会剔除它
+#        service: ${spring.application.name} # 默认为应用名称，配置其中一个即可
