@@ -1,0 +1,15 @@
+spring:
+  application:
+    # 配置列表中的DataId必须和应用名称保持一致，nacos会自动根据应用名称来获取用户配置的属性
+    name: com.github.order.redis
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8847
+      # 开启了nacos的权限控制之后，默认的用户名和密码不可以省略了，必须要写
+      username: nacos
+      password: nacos
+      config:
+        # 注册中心的配置文件默认格式properties格式，一旦改了其他格式，必须要通过file-extension设置
+        file-extension: properties
+#      config:
+#        namespace: public
