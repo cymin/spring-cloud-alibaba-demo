@@ -30,3 +30,5 @@ feign:
         connectTimeout: 5000
         # 请求处理超时时间，默认5s
         readTimeout: 5000
+        # 配置自定义feign拦截器
+        requestInterceptors[0]: com.github.interceptor.CustomFeignInterceptor
