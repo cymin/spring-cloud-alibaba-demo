@@ -15,8 +15,11 @@ spring:
         shared-configs:
           - data-id: com.github.common.properties
             refresh: true
+        extension-configs[0]:
+          data-id: com.github.common2.properties
+          refresh: true
 #            group: DEFAULT_GROUP # 默认值不需要更改，省略
 #      config:
 #        namespace: public
 #配置文件的优先级，相同的属性优先级高的会覆盖优先级小的，并且会形成互补
-#profile文件优先级 > 默认配置文件
+#profile文件优先级 > 默认配置文件 > extension-configs(数组中下标越大优先级越高，后读取到的会覆盖前面的) > shared-configs(数组中下标越大优先级越高，后读取到的会覆盖前面的)
