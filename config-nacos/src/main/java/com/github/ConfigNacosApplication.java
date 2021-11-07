@@ -24,6 +24,7 @@ public class ConfigNacosApplication {
 			System.out.println("name:" + name);
 			System.out.println("age:" + age);
 			System.out.println(environment.getProperty("user.mama"));
+			System.out.println(environment.getProperty("user.baba"));
 			// nacos的小bug，需要把namespace为public的配置注释掉，不然线程休眠3秒不起作用，其他的namespace不会有问题
 			TimeUnit.SECONDS.sleep(3);
 		}
