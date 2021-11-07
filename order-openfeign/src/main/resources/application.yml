@@ -24,3 +24,9 @@ feign:
       # 配置调用product-service的接口日志级别为BASIC，输出内容会少于stock-service的debug的级别
       product-service:
         loggerLevel: BASIC
+        # 设置为feign默认的契约，还原成原生注解，老版本升级的时候使用
+        #contract: feign.Contract.Default
+        # 连接超时时间，默认2s
+        connectTimeout: 5000
+        # 请求处理超时时间，默认5s
+        readTimeout: 5000
