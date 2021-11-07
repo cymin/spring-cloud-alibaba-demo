@@ -12,3 +12,8 @@ spring:
         username: nacos
         password: nacos
         namespace: public
+# 方法二给stock-service重新指定负载均衡策略，使用application.yml配置文件，注意这里没有提示，需要自己写
+# 设置为nacos实现的基于权重的负载均衡策略
+stock-service:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule

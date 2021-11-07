@@ -13,10 +13,10 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 //@EnableDiscoveryClient // 该注解在当前springboot版本中也可以不加，但加上也没错
-// 给stock-service重新指定负载均衡策略，负载均衡策略只能在消费端设置，不能在提供端设置
-@RibbonClients(value = {
+// 方法一给stock-service重新指定负载均衡策略：使用配置类，负载均衡策略只能在消费端设置，不能在提供端设置
+/*@RibbonClients(value = {
         @RibbonClient(name = "stock-service", configuration = RandomRuleConfig.class)
-})
+})*/
 public class OrderApplication {
 
     @Bean
