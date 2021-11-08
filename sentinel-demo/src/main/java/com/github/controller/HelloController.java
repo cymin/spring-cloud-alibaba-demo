@@ -38,14 +38,28 @@ public class HelloController {
      * value = USER_RESOURCE_NAME:定义资源
      * blockHandler = "blockHandler4getUser"：设置被流控降级后的方法，默认该方法必须在同一个类,如果不想跟源方法放在同一个类中，可以在@SentinelResource注解中设置blockHandlerClass属性，
      * 但指定Class中的方法必须声明为static类型，否则无法解析
-     * fallback: 指定接口出现异常时的处理方法, 用法类似于blockHandler
+     * fallback: 指定接口出现异常时的处理方法, 如果同时指定二者，fallback优先级高于blockHandler，默认该方法必须在同一个类,如果不想跟源方法放在同一个类中，可以在@SentinelResource注解中设置bfallbackClass属性，
+     *  但指定Class中的方法必须声明为static类型，否则无法解析
      * @param id
      * @return
      */
     @GetMapping("/user")
-    @SentinelResource(value = USER_RESOURCE_NAME, blockHandler = "blockHandler4GetUser")
+    @SentinelResource(value = USER_RESOURCE_NAME, fallback = "fallbackHandle4GetUser", blockHandler = "blockHandler4GetUser")
     public User getUser(String id) {
+        System.out.println(1/0);
         return new User("小珠珠");
+    }
+
+    /**
+     * getUser接口出现异常时的处理方法
+     * 1.该方法一定要是public
+     * 2.必须要包含源方法的方法参数、参数顺序，返回类型也要和源方法保持一致
+     * 3.方法参数最后可以添加异常处理类参数Throwable
+     * @return
+     */
+    public User fallbackHandle4GetUser(String id, Throwable e) {
+        e.printStackTrace();
+        return new User("异常处理");
     }
 
     /**
