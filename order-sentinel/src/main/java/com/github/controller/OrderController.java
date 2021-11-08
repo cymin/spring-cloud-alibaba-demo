@@ -45,5 +45,14 @@ public class OrderController {
         return "success";
     }
 
+    /**
+     * 测试关联流控模式：
+     * 每秒调用关联资源/order/add超过2次，资源名/order/get将会被限流
+     * @return
+     */
+    @GetMapping("/get")
+    public String get() {
+        return "success";
+    }
 
 }
