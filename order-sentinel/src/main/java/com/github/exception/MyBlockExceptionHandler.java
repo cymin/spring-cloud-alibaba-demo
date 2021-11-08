@@ -28,7 +28,7 @@ public class MyBlockExceptionHandler implements BlockExceptionHandler {
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BlockException e) throws Exception {
         LOGGER.info("规则信息：" + e.getRule().toString());
-        Result r = null;
+        Result r = new Result(500, "其他异常");
         if (e instanceof FlowException) {
             r = Result.get(100, "被限流了");
         } else if (e instanceof DegradeException) {

@@ -2,6 +2,8 @@ package com.github.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.github.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +17,9 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("order")
 public class OrderController {
+
+    @Autowired
+    OrderService orderService;
 
     /**
      * 流控
@@ -54,5 +59,28 @@ public class OrderController {
     public String get() {
         return "success";
     }
+
+    /**
+     * 链路流控模式：
+     * test1接口和test2接口同时调用了业务方法getUsername,对业务方法getUsername进行流控，
+     * 每秒钟调用资源名test2超过2次，入口资源/order/test2将会被限流
+     * @return
+     */
+    @GetMapping("/test1")
+    public String test1() {
+        return "test1:" + orderService.getUsername();
+    }
+
+    /**
+     * 链路流控模式：
+     * test1接口和test2接口同时调用了业务方法getUsername,对业务方法getUsername进行流控，
+     * 每秒钟调用资源名test2超过2次，入口资源/order/test2将会被限流
+     * @return
+     */
+    @GetMapping("/test2")
+    public String test2() {
+        return "test2:" + orderService.getUsername();
+    }
+
 
 }
