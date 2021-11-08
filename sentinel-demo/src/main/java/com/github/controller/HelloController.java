@@ -1,11 +1,14 @@
 package com.github.controller;
 
 import com.alibaba.csp.sentinel.Entry;
+import com.alibaba.csp.sentinel.EntryType;
 import com.alibaba.csp.sentinel.SphU;
 import com.alibaba.csp.sentinel.Tracer;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRuleManager;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.github.pojo.User;
@@ -117,7 +120,7 @@ public class HelloController {
         rule.setResource(RESOURCE_NAME);
         // 设置流控规则 QPS
         rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
-        // 设置受保护的资源阈值 set limit QPS to 20.
+        // 设置受保护的资源阈值
         rule.setCount(1);
         rules.add(rule);
 
@@ -127,11 +130,57 @@ public class HelloController {
         rule2.setResource(USER_RESOURCE_NAME);
         // 设置流控规则 QPS
         rule2.setGrade(RuleConstant.FLOW_GRADE_QPS);
-        // 设置受保护的资源阈值 set limit QPS to 20.
+        // 设置受保护的资源阈值
         rule2.setCount(1);
         rules.add(rule2);
 
         // 加载配置好的规则
         FlowRuleManager.loadRules(rules);
+    }
+
+    /**
+     * 测试熔断降级
+     * @return
+     */
+    @GetMapping("/degrade")
+    @SentinelResource(value = DEGRADE_RESOURCE_NAME, entryType = EntryType.IN, blockHandler = "degradeHandle")
+    public User degrade() {
+        throw new RuntimeException("出现异常");
+    }
+
+    /**
+     * 降级方法，注意最后这个参数BlockException必须要写
+     * @param e
+     * @return
+     */
+    public User degradeHandle(BlockException e) {
+        return new User("熔断降级");
+    }
+
+    /**
+     * 降级规则
+     */
+    @PostConstruct
+    public void initDegradeRule() {
+        List<DegradeRule> rules = new ArrayList<>();
+        DegradeRule rule = new DegradeRule();
+        rule.setResource(DEGRADE_RESOURCE_NAME);
+        // 熔断策略，异常数
+        rule.setGrade(RuleConstant.DEGRADE_GRADE_EXCEPTION_COUNT);
+
+        // 下面三个条件同时满足就触发熔断，即：在1min之内发起了2次请求，失败了2次
+        // 1.触发熔断的异常数
+        rule.setCount(2);
+        // 2.触发熔断的最小请求数
+        rule.setMinRequestAmount(2);
+        // 3.统计时长，页面上没有该设置，单位ms，如果设置时间太短不好测试，默认是1s，但在这里先用1min测试
+        rule.setStatIntervalMs(60*1000);
+
+        // 设置熔断的持续时长，单位s，即在熔断时间10s内后面的请求会直接进入降级处理，
+        // 超过10s以后进入半开状态，恢复正常接口的调用，但是如果在第一次调用之后直接出现了异常，则会再次熔断直接进入降级处理，而不会去管上面3个条件，再过10s之后，如果第一次又出现异常，再次进入半开状态，依次类推
+        rule.setTimeWindow(10);
+
+        rules.add(rule);
+        DegradeRuleManager.loadRules(rules);
     }
 }
