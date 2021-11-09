@@ -12,6 +12,9 @@ spring:
         username: nacos
         password: nacos
         namespace: public
+    sentinel:
+      transport:
+        dashboard: localhost:8858
 # 添加feign对sentinel的支持
 feign:
   sentinel:
