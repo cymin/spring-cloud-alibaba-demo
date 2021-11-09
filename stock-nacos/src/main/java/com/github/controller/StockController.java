@@ -20,4 +20,12 @@ public class StockController {
         System.out.println("库存递减成功");
         return "库存递减成功 port=" + port;
     }
+
+    @GetMapping("/deduct2")
+    public String deduct2() {
+        System.out.println(1/0);
+        System.out.println("库存递减成功");
+        return "库存递减成功 port=" + port;
+    }
+
 }
