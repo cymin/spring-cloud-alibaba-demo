@@ -8,3 +8,14 @@ spring:
       transport:
         dashboard: localhost:8858
       web-context-unify: false #默认为true把调用链路收敛了，没有去维护；设置为false，让它维护
+      # 目前这种方式，在nacos中修改会同步到sentinel，反之如果在sentinel控制台修改了规则是不会同步到nacos中去的，需要手动更改
+      datasource:
+        flow-rule-ds: # 可以自定义，写什么都可以
+          nacos:
+            server-addr: localhost:8847
+            # 开启权限了，用户名密码可以省略
+            username: nacos
+            password: nacos
+            data-id: order-sentinel-flow-rule #在nacos配置中添加的dataId
+            data-type: json
+            rule-type: flow
