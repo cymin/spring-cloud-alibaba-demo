@@ -1,0 +1,29 @@
+version: "3"
+services:
+  seata-server1:
+    image: seataio/seata-server:1.3.0
+    hostname: seata-server1
+    ports:
+      - "8091:8091"
+    volumes:
+      - ~/compose/seata/config:/root/seata-config
+    environment:
+      - SEATA_PORT=8091
+      - STORE_MODE=file
+      - SEATA_CONFIG_NAME=file:/root/seata-config/registry
+  seata-server2:
+    image: seataio/seata-server:1.3.0
+    hostname: seata-server2
+    ports:
+      - "8092:8091"
+    volumes:
+      - ~/compose/seata/config:/root/seata-config
+    environment:
+      - SEATA_PORT=8091
+      - STORE_MODE=file
+      - SEATA_CONFIG_NAME=file:/root/seata-config/registry
+
+networks:
+  default:
+    external:
+      name: service
