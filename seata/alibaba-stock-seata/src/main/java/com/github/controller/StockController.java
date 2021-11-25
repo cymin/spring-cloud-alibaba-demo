@@ -1,5 +1,6 @@
 package com.github.controller;
 
+import com.github.model.Stock;
 import com.github.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
