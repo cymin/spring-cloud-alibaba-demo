@@ -14,9 +14,30 @@ spring:
         server-addr: localhost:8847
         username: nacos
         password: nacos
+    alibaba:
+      seata:
+        # 事务分组
+        tx-service-group: my_test_tx_group
 server:
   port: 8075
-
+seata:
+  # 设置seata的注册中心,告诉seata client怎么与seata server（TC）通讯（在springboot2.1之前只能通过registry.conf文件配置，即与seata的相同的registry.conf复制到微服务的resources目录中一份）
+  registry:
+    type: nacos
+    nacos:
+      server-addr: localhost:8847 # 这就是seata server（TC）所在的nacos服务地址
+      username: nacos
+      password: nacos
+      application: seata-server # 这就是seata server（TC）的服务名称，默认seata-server，如果未修改可以不配
+      group: SEATA_GROUP # 这就是seata server（TC）所在的组，默认SEATA_GROUP，如果未修改可以不配
+  # 还需要设置seata的配置中心，可以读取到nacos中配置列表中关于client*的配置项
+  config:
+    type: nacos
+    nacos:
+      server-addr: localhost:8847
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
 # 设置mybatis
 mybatis:
   #  config-location: classpath:mybatis-config.xml
@@ -30,7 +51,7 @@ mybatis:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/seata_server?useSSL=false&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://localhost:3306/seata_stock?useSSL=false&autoReconnect=true&failOverReadOnly=false
     username: root
     password: 123456
 logging:

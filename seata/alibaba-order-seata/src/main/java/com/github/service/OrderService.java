@@ -3,6 +3,7 @@ package com.github.service;
 import com.github.mapper.OrderMapper;
 import com.github.model.Order;
 import com.github.openfeign.StockFeignService;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,9 @@ public class OrderService {
     @Autowired
     StockFeignService stockFeignService;
 
-    @Transactional
+//    @Transactional
+    // 开启全局事务
+    @GlobalTransactional
     public Order create(Order order) {
         // 插入订单？能否成功
         orderMapper.insert(order);
