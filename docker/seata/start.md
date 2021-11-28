@@ -13,13 +13,17 @@ registry.conf
 2. config.txt
 修改下面几项即可
 ```properties
+#service.default.grouplist=192.168.1.167:8091
+
 store.mode=db
 store.db.url=jdbc:mysql://192.168.1.167:3306/seata_server?useUnicode=true
 store.db.user=root
 store.db.password=123456
 ```
+config.txt源文件来自于`https://gitee.com/cymin/seata/tree/1.3.0/script/config-center/config.txt`。
+
 需要注意的是，如果registry.conf文件的`cluster="default"`的值`dafault`发生变化的话，那么config.txt文件中`service.vgroupMapping.my_test_tx_group`的值也要跟着改变。
-其中的my_test_tx_group可以自定义写什么名字都可以，比如gaungzhou
+其中的my_test_tx_group可以自定义写什么名字都可以，比如guangzhou，但对应的seata client中也要设置同样的名称guangzhou
 
 
 ##3. 把config.txt中的属性注册到nacos配置中心
