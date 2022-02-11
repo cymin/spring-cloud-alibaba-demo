@@ -5,9 +5,12 @@ spring:
     name: stock-seata
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    #    driver-class-name: com.mysql.jdbc.Driver
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.github.config.MyDriver
+    schema: classpath:sql/schema.sql
+    initialization-mode: never
+    druid:
+      validation-query: select 1
 server:
   port: 8071
 
@@ -24,7 +27,7 @@ mybatis:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/seata_server?useSSL=false&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://localhost:3306/seata_stock?useSSL=false&autoReconnect=true&failOverReadOnly=false
     username: root
     password: 123456
 logging:

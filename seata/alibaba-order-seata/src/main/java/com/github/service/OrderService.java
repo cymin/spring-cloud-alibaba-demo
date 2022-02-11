@@ -33,9 +33,9 @@ public class OrderService {
         stockFeignService.deduct(order.getProductId());
 
         // 抛出异常，测试能否完成事务
-        System.out.println(1/0);
+//        System.out.println(1/0);
 
-        System.out.println("订单创建成功");
+//        System.out.println("订单创建成功");
         return order;
     }
 }

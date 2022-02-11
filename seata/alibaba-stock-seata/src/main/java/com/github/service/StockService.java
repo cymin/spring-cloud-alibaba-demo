@@ -1,6 +1,7 @@
 package com.github.service;
 
 import com.github.mapper.StockMapper;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ public class StockService {
     @Autowired
     StockMapper stockMapper;
 
+//    @GlobalTransactional
     public void deduct(Integer productId) {
         stockMapper.deduct(productId);
         System.out.println("更新商品id：" + productId);

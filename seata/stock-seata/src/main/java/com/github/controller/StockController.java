@@ -2,10 +2,7 @@ package com.github.controller;
 
 import com.github.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author : cymin
@@ -17,9 +14,9 @@ public class StockController {
     @Autowired
     StockService stockService;
 
-    @PostMapping("/deduct")
-    public String deduct(@RequestParam("productId") Integer productId) {
-        stockService.deduct(productId);
+    @GetMapping("/deduct")
+    public String deduct() {
+        stockService.deduct(1);
         return "库存递减成功";
     }
 }

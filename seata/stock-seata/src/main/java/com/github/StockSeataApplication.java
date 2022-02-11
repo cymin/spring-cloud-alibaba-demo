@@ -3,6 +3,7 @@ package com.github;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author : cymin
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan("com.github.mapper")
+@EnableTransactionManagement
 public class StockSeataApplication {
     public static void main(String[] args) {
         SpringApplication.run(StockSeataApplication.class, args);
